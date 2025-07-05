@@ -22,7 +22,7 @@ export default function CommentItem({ comment }: { comment: Comment }) {
           {new Date(comment.createdAt).toLocaleString()}
         </p>
       </div>
-      <p>{comment.content}</p>
+      <p className="my-2 text-gray-800">{comment.content}</p>
       <button
         onClick={() => setShowReplyForm(!showReplyForm)}
         className="text-sm text-blue-500 mt-2"

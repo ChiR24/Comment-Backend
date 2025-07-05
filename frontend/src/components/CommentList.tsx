@@ -19,7 +19,8 @@ export default function CommentList() {
 
   useEffect(() => {
     const fetchComments = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
+      const url = new URL('/comments', process.env.NEXT_PUBLIC_API_URL).toString();
+      const res = await fetch(url);
       const data = await res.json();
       setComments(data);
     };

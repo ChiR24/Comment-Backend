@@ -13,7 +13,8 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+    const url = new URL('/auth/register', process.env.NEXT_PUBLIC_API_URL).toString();
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),

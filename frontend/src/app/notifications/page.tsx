@@ -22,7 +22,8 @@ export default function NotificationsPage() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications`, {
+    const url = new URL('/notifications', process.env.NEXT_PUBLIC_API_URL).toString();
+    const res = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -39,7 +40,8 @@ export default function NotificationsPage() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications/${id}/read`, {
+    const url = new URL(`/notifications/${id}/read`, process.env.NEXT_PUBLIC_API_URL).toString();
+    await fetch(url, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
     });

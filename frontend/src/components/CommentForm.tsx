@@ -2,18 +2,32 @@
 
 import { useState } from 'react';
 
-export default function CommentForm({ parentId, onCommentCreated }: { parentId?: string; onCommentCreated: () => void }) {
+export default function CommentForm({
+  parentId,
+  onCommentCreated,
+}: {
+  parentId?: number;
+  onCommentCreated?: () => void;
+}) {
   const [content, setContent] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
-    if (!token) {
-      // Handle not authenticated
+    if (!content.trim()) {
       return;
     }
 
-    const url = new URL('/comments', process.env.NEXT_PUBLIC_API_URL).toString();
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found. User might be logged out.');
+      return;
+    }
+
+    const url = new URL(
+      '/comments',
+      process.env.NEXT_PUBLIC_API_URL,
+    ).toString();
+
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -25,20 +39,25 @@ export default function CommentForm({ parentId, onCommentCreated }: { parentId?:
 
     if (res.ok) {
       setContent('');
-      onCommentCreated();
+      if (onCommentCreated) {
+        onCommentCreated();
+      }
+    } else {
+      console.error('Failed to post comment:', await res.text());
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="mb-6">
       <textarea
+        className="w-full p-2 border rounded text-black"
+        rows={3}
         value={content}
-        onChange={(e) => setContent(e.target.value)}
-        className="w-full p-2 border rounded"
-        placeholder="Write a comment..."
-        required
-      />
-      <button type="submit" className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+        onChange={e => setContent(e.target.value)}
+        placeholder="Write a comment..."></textarea>
+      <button
+        type="submit"
+        className="px-4 py-2 mt-2 text-white bg-blue-600 rounded hover:bg-blue-700">
         Post Comment
       </button>
     </form>

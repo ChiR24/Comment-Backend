@@ -21,8 +21,8 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      const { token } = await res.json();
-      localStorage.setItem('token', token);
+      const { accessToken } = await res.json();
+      localStorage.setItem('token', accessToken);
       router.push('/');
     } else {
       setError('Invalid credentials');

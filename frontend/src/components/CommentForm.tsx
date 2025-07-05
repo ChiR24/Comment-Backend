@@ -13,7 +13,7 @@ export default function CommentForm({ parentId, onCommentCreated }: { parentId?:
       return;
     }
 
-    const res = await fetch('http://localhost:3000/comments', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

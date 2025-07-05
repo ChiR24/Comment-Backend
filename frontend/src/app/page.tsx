@@ -1,21 +1,28 @@
 'use client';
 
-import CommentList from '@/components/CommentList';
-import CommentForm from '@/components/CommentForm';
-import { useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
 
 export default function Home() {
-  const [key, setKey] = useState(0);
+  const [token, setToken] = useState<string | null>(null);
 
-  const handleCommentCreated = useCallback(() => {
-    setKey((prevKey) => prevKey + 1);
+  useEffect(() => {
+    // This will run only on the client side
+    setToken(localStorage.getItem('token'));
   }, []);
 
   return (
-    <div>
+    <main>
       <h1 className="text-3xl font-bold mb-4">Comments</h1>
-      <CommentForm onCommentCreated={handleCommentCreated} />
-      <CommentList key={key} />
-    </div>
+      {token ? (
+        <>
+          <CommentForm />
+          <CommentList />
+        </>
+      ) : (
+        <p>Please log in to view and post comments.</p>
+      )}
+    </main>
   );
 }

@@ -35,26 +35,30 @@ export default function RegisterPage() {
         <h1 className="text-2xl font-bold mb-4">Register</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
-          <label className="block text-gray-700">Username</label>
+          <label className="block mb-2" htmlFor="username">
+            Username
+          </label>
           <input
             type="text"
             id="username"
             name="username"
+            className="w-full px-3 py-2 border rounded text-white bg-gray-700"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
+          <label className="block mb-2" htmlFor="password">
+            Password
+          </label>
           <input
             type="password"
             id="password"
             name="password"
+            className="w-full px-3 py-2 border rounded text-white bg-gray-700"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
             required
           />
         </div>

@@ -42,7 +42,7 @@ export default function LoginPage() {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded text-white bg-gray-700"
             required
           />
         </div>
@@ -54,7 +54,7 @@ export default function LoginPage() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded text-white bg-gray-700"
             required
           />
         </div>

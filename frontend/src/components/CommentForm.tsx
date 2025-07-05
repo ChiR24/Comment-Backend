@@ -50,7 +50,7 @@ export default function CommentForm({
   return (
     <form onSubmit={handleSubmit} className="mb-6">
       <textarea
-        className="w-full p-2 border rounded text-black"
+        className="w-full p-2 border rounded text-white bg-gray-700"
         rows={3}
         value={content}
         onChange={e => setContent(e.target.value)}

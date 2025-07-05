@@ -6,7 +6,7 @@ export default function CommentForm({
   parentId,
   onCommentCreated,
 }: {
-  parentId?: number;
+  parentId?: string;
   onCommentCreated?: () => void;
 }) {
   const [content, setContent] = useState('');

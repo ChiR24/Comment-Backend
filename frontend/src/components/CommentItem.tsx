@@ -3,15 +3,17 @@
 import { useState } from 'react';
 import { Comment } from './CommentList';
 import CommentForm from './CommentForm';
+import { useRouter } from 'next/navigation';
 
 export default function CommentItem({ comment }: { comment: Comment }) {
   const [showReplyForm, setShowReplyForm] = useState(false);
+  const router = useRouter();
 
   const handleCommentCreated = () => {
     setShowReplyForm(false);
-    // This is a bit of a hack to force a re-render of the parent
-    // A better solution would be to use a state management library
-    window.location.reload();
+    // A simple way to refresh the page to show the new comment.
+    // A more advanced implementation might use global state management.
+    router.refresh();
   };
 
   return (
@@ -30,7 +32,10 @@ export default function CommentItem({ comment }: { comment: Comment }) {
         Reply
       </button>
       {showReplyForm && (
-        <CommentForm parentId={comment.id} onCommentCreated={handleCommentCreated} />
+        <CommentForm
+          parentId={comment.id}
+          onCommentCreated={handleCommentCreated}
+        />
       )}
       {comment.replies && (
         <div className="pl-4 mt-2 border-l-2 border-gray-300">

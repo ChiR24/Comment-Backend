@@ -15,7 +15,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto): Promise<Omit<User, 'password'>> {
+  async register(
+    registerDto: RegisterDto,
+  ): Promise<{ accessToken: string }> {
     const { username, password } = registerDto;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.userRepository.create({
@@ -23,8 +25,10 @@ export class AuthService {
       password: hashedPassword,
     });
     const savedUser = await this.userRepository.save(user);
-    const { password: _, ...result } = savedUser;
-    return result;
+
+    const payload = { username: savedUser.username, sub: savedUser.id };
+    const accessToken = this.jwtService.sign(payload);
+    return { accessToken };
   }
 
   async login(loginDto: LoginDto): Promise<{ accessToken: string }> {

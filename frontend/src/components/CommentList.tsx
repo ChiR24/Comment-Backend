@@ -3,16 +3,15 @@
 import { useEffect, useState } from 'react';
 import CommentItem from './CommentItem';
 
-export type Comment = {
+export interface Comment {
   id: string;
   content: string;
   createdAt: string;
   user: {
-    id: string;
     username: string;
   };
-  replies: Comment[];
-};
+  replies?: Comment[];
+}
 
 export default function CommentList() {
   const [comments, setComments] = useState<Comment[]>([]);

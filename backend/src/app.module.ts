@@ -7,6 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { CommentSubscriber } from './comments/subscribers/comment.subscriber';
+import { Comment } from './comments/entities/comment.entity';
+import { User } from './auth/entities/user.entity';
+import { Notification } from './notifications/entities/notification.entity';
 
 @Module({
   imports: [

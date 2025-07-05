@@ -32,7 +32,7 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const payload = { id: user.id };
+      const payload = { username: user.username, sub: user.id };
       const accessToken = this.jwtService.sign(payload);
       return { accessToken };
     } else {
